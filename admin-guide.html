@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wall of Fame — Admin Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#194866; --orange:#f98012; --black:#282828;
+  --grey:#545454; --lgrey:#8a8a8e; --bg:#F2F6F9; --surface:#fff;
+  --border:rgba(25,72,102,0.12);
+  --green-bg:#F0FDF4; --green-border:#86EFAC; --green-text:#166534;
+  --amber-bg:#FFFBEB; --amber-border:#FDE68A; --amber-text:#92400E;
+}
+body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--black);padding:2rem 1rem 4rem}
+.page{max-width:760px;margin:0 auto}
+
+/* Header */
+.header{text-align:center;margin-bottom:2.5rem;padding:2rem;background:var(--surface);border-radius:16px;border:1.5px solid var(--border)}
+.badge{display:inline-flex;align-items:center;gap:7px;background:var(--orange);color:var(--black);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 16px;border-radius:30px;margin-bottom:.9rem}
+.header h1{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--blue);margin-bottom:.4rem}
+.header h1 em{font-style:italic;color:var(--black)}
+.header p{font-size:13px;color:var(--lgrey);font-weight:600}
+
+/* Section */
+.section{margin-bottom:2rem}
+.section-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:1.5px;background:var(--border)}
+
+/* Role cards */
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:2rem}
+.role-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:1.25rem}
+.role-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:10px}
+.role-tag.everyone{background:#E8F1F6;color:var(--blue)}
+.role-tag.admin{background:#FFF3E0;color:#b45309}
+.role-card h3{font-size:14px;font-weight:700;color:var(--black);margin-bottom:6px}
+.role-card p{font-size:12px;color:var(--lgrey);line-height:1.6}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:14px;position:relative;padding-bottom:24px}
+.step:last-child{padding-bottom:0}
+.step:not(:last-child)::before{content:'';position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--border)}
+.step-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;z-index:1}
+.step-num.blue{background:var(--blue);color:#fff}
+.step-num.orange{background:var(--orange);color:var(--black)}
+.step-num.green{background:#059669;color:#fff}
+.step-body h4{font-size:14px;font-weight:700;color:var(--black);margin-bottom:4px;margin-top:4px}
+.step-body p{font-size:13px;color:var(--grey);line-height:1.65}
+.step-body .note{background:var(--green-bg);border:1.5px solid var(--green-border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--green-text);font-weight:600;margin-top:8px;line-height:1.55}
+.step-body .warn{background:var(--amber-bg);border:1.5px solid var(--amber-border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--amber-text);font-weight:600;margin-top:8px;line-height:1.55}
+
+/* Flow diagram */
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:1.25rem;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;margin-bottom:2rem}
+.fbox{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;color:var(--black);text-align:center;line-height:1.4}
+.fbox.blue{background:#E8F1F6;border-color:rgba(25,72,102,0.25);color:var(--blue)}
+.fbox.orange{background:#FFF3E0;border-color:rgba(249,128,18,0.3);color:#b45309}
+.fbox.green{background:var(--green-bg);border-color:var(--green-border);color:var(--green-text)}
+.farrow{color:var(--lgrey);font-size:16px;font-weight:700;flex-shrink:0}
+.fauto{font-size:9px;font-weight:700;color:var(--lgrey);text-transform:uppercase;letter-spacing:.5px;display:block;margin-top:3px}
+
+/* Cheatsheet */
+.cheat{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cheat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:1.1rem}
+.cheat-card h4{font-size:13px;font-weight:700;color:var(--black);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.cheat-card ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.cheat-card li{font-size:12px;color:var(--grey);line-height:1.5;display:flex;gap:8px;align-items:flex-start}
+.cheat-card li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px}
+.chip{display:inline-block;background:#1e293b;color:#7dd3fc;font-family:monospace;font-size:10px;padding:1px 6px;border-radius:4px}
+.divider-line{border:none;border-top:1.5px solid var(--border);margin:1.5rem 0}
+@media(max-width:600px){.roles,.cheat{grid-template-columns:1fr}.flow{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="badge">
+      <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1 L8.6 4.9 L12.7 5.3 L9.8 7.9 L10.6 12 L7 9.9 L3.4 12 L4.2 7.9 L1.3 5.3 L5.4 4.9 Z" fill="#282828"/></svg>
+      Admin guide
+    </div>
+    <h1>Wall of <em>Fame</em></h1>
+    <p>Everything you need to manage the board — keep this page bookmarked</p>
+  </div>
+
+  <!-- How it works -->
+  <div class="section">
+    <div class="section-title">How the whole thing works</div>
+    <div class="flow">
+      <div class="fbox orange">Someone submits<br>the Google Form<span class="fauto">by anyone on the team</span></div>
+      <div class="farrow">→</div>
+      <div class="fbox blue">Auto-appears as<br>mystery box on board<span class="fauto">automatic — no action needed</span></div>
+      <div class="farrow">→</div>
+      <div class="fbox">Admin unchecks<br>"pending" in sheet<span class="fauto">at all-hands</span></div>
+      <div class="farrow">→</div>
+      <div class="fbox green">Card reveals live<br>on the board<span class="fauto">within 30 seconds</span></div>
+    </div>
+  </div>
+
+  <!-- Who does what -->
+  <div class="section">
+    <div class="section-title">Who does what</div>
+    <div class="roles">
+      <div class="role-card">
+        <span class="role-tag everyone">Everyone on the team</span>
+        <h3>Submit a kudo</h3>
+        <p>Click the "Give a kudo" button on the Confluence board — it opens the Google Form in a new tab. Fill in the person's name, their value, and your message. Done. It appears on the board automatically as a mystery box.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-tag admin">Leadership / admin only</span>
+        <h3>Reveal at all-hands</h3>
+        <p>Open the Wall of Fame Google Sheet → click the Kudos tab → find the person's row → uncheck the pending box. The board updates within 30 seconds. That's the only action required from leadership.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider-line">
+
+  <!-- Step by step for all-hands day -->
+  <div class="section">
+    <div class="section-title">All-hands day — step by step</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num blue">1</div>
+        <div class="step-body">
+          <h4>Before the meeting — review pending kudos</h4>
+          <p>Open the <strong>Wall of Fame Google Sheet → Kudos tab</strong>. Every row with the pending box ticked (✅) is a mystery box on the board. Check the name and message to prepare your reveal moment.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num blue">2</div>
+        <div class="step-body">
+          <h4>Share your screen showing the Confluence board</h4>
+          <p>Open the Wall of Fame Confluence page on your screen. The mystery boxes are visible to the audience. Keep the Google Sheet open in another tab.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num orange">3</div>
+        <div class="step-body">
+          <h4>Announce the person, then reveal</h4>
+          <p>Say the person's name live. Then switch to the Google Sheet tab → Kudos tab → find their row → <strong>uncheck the pending box</strong>. Switch back to the Confluence board tab — within 30 seconds the mystery box becomes their card.</p>
+          <div class="note">Tip: have both the Confluence tab and the Google Sheet tab open side by side on a second monitor if you have one, so you can reveal without switching screens.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num green">4</div>
+        <div class="step-body">
+          <h4>Repeat for each recipient</h4>
+          <p>Uncheck one at a time so each reveal gets its own moment. The board refreshes automatically every 30 seconds — or you can manually refresh the Confluence page for an instant update.</p>
+          <div class="warn">Don't uncheck all pending boxes at once before the meeting — the whole point is revealing them live!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider-line">
+
+  <!-- Quick reference cheatsheet -->
+  <div class="section">
+    <div class="section-title">Quick reference cheatsheet</div>
+    <div class="cheat">
+      <div class="cheat-card">
+        <h4>
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v12H4z" stroke="#194866" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 8h12M8 4v12" stroke="#194866" stroke-width="1.5"/></svg>
+          Google Sheet — Kudos tab
+        </h4>
+        <ul>
+          <li><strong>Pending ✅</strong> = mystery box (hidden from team)</li>
+          <li><strong>Pending ☐</strong> = revealed card (visible to all)</li>
+          <li>To reveal: just uncheck the box in column H</li>
+          <li>To add manually: fill in a new row, tick pending ✅</li>
+          <li>Color 0–7 = which sticky note colour to use</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <h4>
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#194866" stroke-width="1.5"/><path d="M10 6v4l2.5 2.5" stroke="#194866" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Timing &amp; refresh
+        </h4>
+        <ul>
+          <li>Board refreshes every <strong>30 seconds</strong> automatically</li>
+          <li>Manual refresh: reload the Confluence page</li>
+          <li>Form → Kudos tab: automatic (via Apps Script trigger)</li>
+          <li>New mystery boxes appear within 30 seconds of submission</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <h4>
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 1 0 0 16A8 8 0 0 0 10 2zm0 4v4l3 2" stroke="#194866" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Something not working?
+        </h4>
+        <ul>
+          <li>Board not loading → check the Google Sheet is set to "Anyone with the link can view"</li>
+          <li>Mystery box not appearing → check the Kudos tab, pending should be ✅</li>
+          <li>Card not revealing → wait 30 seconds or refresh the page</li>
+          <li>Form not auto-copying → add the row manually to Kudos tab</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <h4>
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.4 5 5.6.8-4 3.9.9 5.3L10 14.5l-4.9 2.5.9-5.3-4-3.9 5.6-.8z" stroke="#194866" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          Key links to bookmark
+        </h4>
+        <ul>
+          <li><strong>The board:</strong> Wall of Fame Confluence page</li>
+          <li><strong>The data:</strong> Wall of Fame Google Sheet → Kudos tab</li>
+          <li><strong>The form:</strong> forms.gle/UBJjB14t7oSsKXpLA</li>
+          <li><strong>GitHub:</strong> github.com/nadiaperujogarcia/wall-of-fame</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
