@@ -13,7 +13,7 @@
   --bg: #F2F6F9; --surface: #FFFFFF; --border: rgba(25,72,102,0.12);
   --ink: var(--moodle-black); --ink-mid: var(--moodle-dgrey);
   --ink-soft: var(--moodle-lgrey); --ink-ghost: #BBBBBB;
-  --accent: var(--moodle-blue); --accent-bg: #E8F1F6;
+  --accent-bg: #E8F1F6;
   --note-0:#FFE566; --note-1:#6EE7B7; --note-2:#FCA5C5; --note-3:#93C5FD;
   --note-4:#FDB77A; --note-5:#C4B5FD; --note-6:#86EFAC; --note-7:#FDE68A;
   --pin-0:#B45309; --pin-1:#059669; --pin-2:#BE185D; --pin-3:#1D4ED8;
@@ -54,7 +54,7 @@ body { font-family: var(--font-body); background: var(--bg); padding-bottom: 4re
 .kn6{background:var(--note-6)} .kn6 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-6) 55%,#fff),var(--pin-6))}
 .kn7{background:var(--note-7)} .kn7 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-7) 55%,#fff),var(--pin-7))}
 .pin { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 3px 8px rgba(0,0,0,0.36), inset 0 2px 4px rgba(255,255,255,0.3); z-index: 2; }
-.value-tag { display: inline-block; font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 700; margin-bottom: 10px; background: rgba(0,0,0,0.10); color: rgba(0,0,0,0.65); letter-spacing: 0.3px; }
+.value-tag { display: inline-block; font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 700; margin-bottom: 10px; background: rgba(0,0,0,0.10); color: rgba(0,0,0,0.65); }
 .av { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; background: rgba(0,0,0,0.11); color: var(--moodle-black); }
 .bigq { font-family: Georgia,serif; font-size: 64px; line-height: 1; color: rgba(0,0,0,0.07); position: absolute; top: 52px; left: 4px; pointer-events: none; user-select: none; }
 .mystery { background: var(--surface); border-radius: var(--radius-card); padding: 1.5rem 1rem; text-align: center; box-shadow: var(--shadow-card); min-height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed rgba(25,72,102,0.20); position: relative; margin-top: 16px; }
@@ -63,12 +63,8 @@ body { font-family: var(--font-body); background: var(--bg); padding-bottom: 4re
 .mystery-icon { width: 52px; height: 52px; background: var(--accent-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; animation: float 2.6s ease-in-out infinite; }
 .mystery-dots { display: flex; gap: 5px; margin-top: 12px; justify-content: center; }
 .mystery-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-bg); border: 1.5px solid var(--border); display: inline-block; }
-.confbox { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: var(--radius-card); }
-.cp { position: absolute; top: -10px; width: 9px; height: 9px; border-radius: 2px; }
-@keyframes cardPop { 0%{transform:scale(0.3) rotate(-15deg)!important;opacity:0} 65%{transform:scale(1.08)!important} 100%{transform:scale(1)!important;opacity:1} }
-.popped { animation: cardPop 0.55s cubic-bezier(.34,1.56,.64,1) both !important; }
 .empty-state { text-align: center; padding: 4rem 1rem; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
-.error-state  { text-align: center; padding: 3rem 1rem; font-size: 13px; color: #B91C1C; font-weight: 600; }
+.error-state { text-align: center; padding: 3rem 1rem; font-size: 13px; color: #B91C1C; font-weight: 600; line-height: 1.7; }
 </style>
 </head>
 <body>
@@ -83,43 +79,76 @@ body { font-family: var(--font-body); background: var(--bg); padding-bottom: 4re
   <h1>Wall of <em>Fame</em></h1>
   <p class="hero-sub">Celebrating the people who make us better, every single day</p>
   <div class="stats" id="stats"></div>
-  <a class="submit-kudo-btn" id="submit-btn" href="#" target="_blank" style="display:none">Give a kudo</a>
-  <p class="submit-note" id="submit-note" style="display:none">Opens the kudo form in a new tab</p>
+  <a class="submit-kudo-btn" id="submit-btn" href="PASTE_YOUR_GOOGLE_FORM_URL_HERE" target="_blank">Give a kudo</a>
+  <p class="submit-note">Opens the kudo form in a new tab</p>
 </div>
 
 <div class="filter-bar" id="filter-bar"></div>
 <div class="divider"><span class="divider-label" id="board-label">Loading...</span></div>
 <div id="kgrid" class="kgrid"><div class="empty-state">Loading the board...</div></div>
-<div id="empty-state" class="empty-state" style="display:none">No kudos yet — be the first to celebrate a teammate!</div>
+<div id="empty-state" class="empty-state" style="display:none">No kudos yet!</div>
 
 <script>
-/* ══════════════════════════════════════════════════════════════
-   STEP 1: Paste your Google Apps Script web app URL below.
-   It looks like: https://script.google.com/macros/s/XXXXX/exec
-══════════════════════════════════════════════════════════════ */
-const DATA_URL = "https://script.google.com/a/macros/moodle.com/s/AKfycbzIG_IqqUQLZLfleoG-SAwIA5yqWDZm90dMvPjDrIvDInGWNMPOhRITDhg2lk-XTn7K/exec";
+/* ═══════════════════════════════════════════════════════════
+   TWO THINGS TO FILL IN:
+
+   1. SHEET_ID — open your Google Sheet, copy the long ID
+      from the URL between /d/ and /edit
+      Example URL: docs.google.com/spreadsheets/d/1BxiM.../edit
+      Paste just the ID part: "1BxiM..."
+
+   2. FORM_URL  — your Google Form share link
+      Already set on the Give a kudo button above,
+      but also paste it here for the auto-refresh to work.
+═══════════════════════════════════════════════════════════ */
+const SHEET_ID = "PASTE_YOUR_SHEET_ID_HERE";
+
+/* ─── everything below runs automatically — no changes needed ─── */
 
 const ROTS = [-3.5, 2.2, -1.8, 3.1, -2.4, 1.6, -3.2, 2.8, -1.3, 1.9, -2.8, 2.5];
-const CONF = ["#FFE566","#6EE7B7","#FCA5C5","#93C5FD","#FDB77A","#C4B5FD","#86EFAC","#FDE68A"];
 let kudos = [], activeVal = "All";
 
+async function loadSheet(sheetName) {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
+  const res  = await fetch(url);
+  const text = await res.text();
+  // Strip Google's JSONP wrapper  /*O_o*/\ngoogle.visualization.Query.setResponse({...});
+  const json = JSON.parse(text.match(/setResponse\(([\s\S]+)\)/)[1]);
+  const cols = json.table.cols.map(c => c.label.toLowerCase().trim());
+  return (json.table.rows || []).map(row => {
+    const obj = {};
+    cols.forEach((col, i) => { obj[col] = row.c && row.c[i] != null ? row.c[i].v : ""; });
+    return obj;
+  });
+}
+
 async function load() {
-  if (!DATA_URL || DATA_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
-    document.getElementById("kgrid").innerHTML = '<div class="error-state">Add your Apps Script URL to index.html to load the board.</div>';
+  if (!SHEET_ID || SHEET_ID === "https://docs.google.com/spreadsheets/d/1hWiIyFojyDglP6gZZV2URxM87aEJQgxmof4fHSTF25k/edit?usp=sharing") {
+    document.getElementById("kgrid").innerHTML =
+      '<div class="error-state">Paste your Google Sheet ID into index.html (see the comment at the top of the script).</div>';
     return;
   }
   try {
-    const res  = await fetch(DATA_URL);
-    const data = await res.json();
-    kudos = data.kudos || [];
-    const submitUrl = data.submitUrl || "";
-    if (submitUrl) {
-      document.getElementById("submit-btn").href = submitUrl;
-      document.getElementById("submit-btn").style.display = "inline-block";
-      document.getElementById("submit-note").style.display = "block";
-    }
-  } catch {
-    document.getElementById("kgrid").innerHTML = '<div class="error-state">Could not load kudos. Check your Apps Script URL and make sure it is deployed as "Anyone".</div>';
+    const rows = await loadSheet("Kudos");
+    kudos = rows
+      .filter(r => r.name && r.name !== "")
+      .map((r, i) => ({
+        id:       r.id || i,
+        name:     r.name     || "",
+        initials: r.initials || "?",
+        role:     r.role     || "",
+        value:    r.value    || "",
+        message:  r.message  || "",
+        from:     r.from     || "",
+        pending:  r.pending  === true || r.pending === "TRUE" || r.pending === "true",
+        color:    parseInt(r.color) || i % 8,
+      }));
+  } catch (err) {
+    document.getElementById("kgrid").innerHTML =
+      '<div class="error-state">Could not load the sheet.<br><br>' +
+      'Make sure your Google Sheet is set to <strong>"Anyone with the link can view"</strong>:<br>' +
+      'In the sheet → Share → Change to Anyone with the link → Viewer → Done.<br><br>' +
+      'Also check that SHEET_ID is correct in index.html.</div>';
     return;
   }
   render();
@@ -137,7 +166,7 @@ function renderStats() {
 }
 
 function renderFilters() {
-  const used = [...new Set(kudos.filter(k => !k.pending).map(k => k.value))].sort();
+  const used = [...new Set(kudos.filter(k => !k.pending).map(k => k.value).filter(Boolean))].sort();
   if (used.length < 2) { document.getElementById("filter-bar").innerHTML = ""; return; }
   document.getElementById("filter-bar").innerHTML = ["All", ...used]
     .map(v => `<button class="vbtn${activeVal === v ? " on" : ""}" onclick="setFilter('${v}')">${v}</button>`)
@@ -150,7 +179,7 @@ function cardHTML(k, idx) {
     return `<div class="mystery" style="transform:rotate(${rot}deg)">
       <div class="pin"></div>
       <div class="mystery-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
           <path d="M20 12v9H4v-9" stroke="#194866" stroke-width="2" stroke-linecap="round"/>
           <path d="M22 7H2v5h20V7z" stroke="#194866" stroke-width="2" stroke-linecap="round"/>
           <path d="M12 22V7" stroke="#194866" stroke-width="2" stroke-linecap="round"/>
@@ -163,23 +192,22 @@ function cardHTML(k, idx) {
       <div class="mystery-dots"><span></span><span></span><span></span></div>
     </div>`;
   }
-  const colorIdx = (typeof k.color === "number" ? k.color : 0) % 8;
-  return `<div class="kcard kn${colorIdx}" id="kc-${k.id}" style="transform:rotate(${rot}deg)">
-    <div class="confbox" id="cf-${k.id}"></div>
+  const c = (typeof k.color === "number" ? k.color : 0) % 8;
+  return `<div class="kcard kn${c}" id="kc-${k.id}" style="transform:rotate(${rot}deg)">
     <div class="pin"></div>
-    <span class="value-tag">${k.value || ""}</span>
+    <span class="value-tag">${k.value}</span>
     <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
-      <div class="av">${k.initials || "?"}</div>
+      <div class="av">${k.initials}</div>
       <div>
         <p style="font-size:13px;font-weight:700;color:#282828;line-height:1.25">${k.name}</p>
-        <p style="font-size:11px;color:#8a8a8e;font-weight:600">${k.role || ""}</p>
+        <p style="font-size:11px;color:#8a8a8e;font-weight:600">${k.role}</p>
       </div>
     </div>
     <div style="position:relative">
       <div class="bigq">"</div>
-      <p style="font-size:12px;color:rgba(40,40,40,0.75);line-height:1.65;font-style:italic;padding-left:10px">${k.message || ""}</p>
+      <p style="font-size:12px;color:rgba(40,40,40,0.75);line-height:1.65;font-style:italic;padding-left:10px">${k.message}</p>
     </div>
-    <p style="font-size:11px;color:rgba(40,40,40,0.50);margin-top:9px;font-weight:600">— ${k.from || ""}</p>
+    <p style="font-size:11px;color:rgba(40,40,40,0.50);margin-top:9px;font-weight:600">— ${k.from}</p>
   </div>`;
 }
 
