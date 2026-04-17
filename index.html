@@ -101,7 +101,7 @@ body { font-family: var(--font-body); background: var(--bg); padding-bottom: 4re
       Already set on the Give a kudo button above,
       but also paste it here for the auto-refresh to work.
 ═══════════════════════════════════════════════════════════ */
-const SHEET_ID = "PASTE_YOUR_SHEET_ID_HERE";
+const SHEET_ID = "1hWiIyFojyDglP6gZZV2URxM87aEJQgxmof4fHSTF25k";
 
 /* ─── everything below runs automatically — no changes needed ─── */
 
@@ -123,7 +123,7 @@ async function loadSheet(sheetName) {
 }
 
 async function load() {
-  if (!SHEET_ID || SHEET_ID === "https://docs.google.com/spreadsheets/d/1hWiIyFojyDglP6gZZV2URxM87aEJQgxmof4fHSTF25k/edit?usp=sharing") {
+ if (!SHEET_ID || SHEET_ID === "PASTE_YOUR_SHEET_ID_HERE") {
     document.getElementById("kgrid").innerHTML =
       '<div class="error-state">Paste your Google Sheet ID into index.html (see the comment at the top of the script).</div>';
     return;
