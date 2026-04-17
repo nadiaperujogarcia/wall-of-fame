@@ -129,20 +129,20 @@ async function load() {
     return;
   }
   try {
-    const rows = await loadSheet("Kudos");
-    kudos = rows
-      .filter(r => r.name && r.name !== "")
-      .map((r, i) => ({
-        id:       r.id || i,
-        name:     r.name     || "",
-        initials: r.initials || "?",
-        role:     r.role     || "",
-        value:    r.value    || "",
-        message:  r.message  || "",
-        from:     r.from     || "",
-        pending:  r.pending  === true || r.pending === "TRUE" || r.pending === "true",
-        color:    parseInt(r.color) || i % 8,
-      }));
+  const rows = await loadSheet("Form_Responses");
+kudos = rows
+  .filter(r => r["who are you recognising?"])
+  .map((r, i) => ({
+    id:       i,
+    name:     r["who are you recognising?"]           || "",
+    initials: (r["their initials (2 letters, e.g. sr)"] || "?").toUpperCase().slice(0,2),
+    role:     r["their team and role"]                 || "",
+    value:    r["which value did they embody?"]        || "",
+    message:  r["your shout-out message"]              || "",
+    from:     r["your name and title"]                 || "",
+    pending:  r["pending"] === true || r["pending"] === "TRUE",
+    color:    i % 8,
+  }));
   } catch (err) {
     document.getElementById("kgrid").innerHTML =
       '<div class="error-state">Could not load the sheet.<br><br>' +
