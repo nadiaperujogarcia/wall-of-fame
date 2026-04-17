@@ -69,3 +69,14 @@
     }
   ]
 }
+{
+"id": 7,
+"name": "Full Name",
+"initials": "XX",
+"role": "Their Team",
+"value": "Innovation",
+"message": "Their message here",
+"from": "Nominator Name · Title",
+"pending": true,
+"color": 6
+}
