@@ -423,45 +423,51 @@ body {
 }
 .popped { animation: cardPop 0.55s cubic-bezier(.34,1.56,.64,1) both !important; }
 
-/* ── TOAST ─────────────────────────────────────────── */
-.toast {
-  position: fixed; bottom: 26px; left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--moodle-blue); color: var(--moodle-orange);
-  padding: 13px 32px; border-radius: 30px;
-  font-family: var(--font-body); font-size: 14px; font-weight: 700;
-  box-shadow: 0 6px 28px rgba(25,72,102,0.30);
-  transition: transform 0.42s cubic-bezier(.34,1.56,.64,1);
-  z-index: 999; white-space: nowrap;
+/* ── TOAST BAR (top of page, no fixed positioning) ──── */
+.toast-bar {
+  max-height: 0;
+  overflow: hidden;
+  text-align: center;
+  background: var(--moodle-blue);
+  color: var(--moodle-orange);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  padding: 0 32px;
 }
-.toast.show { transform: translateX(-50%) translateY(0); }
+.toast-bar.show { max-height: 60px; padding: 14px 32px; }
 
-/* ── ADMIN PIN MODAL ───────────────────────────────── */
-.modal-bg {
-  position: fixed; inset: 0; background: rgba(25,72,102,0.40);
-  display: flex; align-items: center; justify-content: center; z-index: 500; padding: 1rem;
+/* ── ADMIN PANEL (inline, iframe-safe) ─────────────── */
+.admin-panel {
+  max-width: 940px; margin: 0 auto 1.5rem; padding: 0 1.25rem;
 }
-.modal-box {
-  background: var(--surface); border-radius: 16px; padding: 2rem;
-  max-width: 360px; width: 100%;
-  box-shadow: 0 10px 40px rgba(25,72,102,0.22); text-align: center;
+.admin-panel-inner {
+  background: var(--surface);
+  border-radius: 14px;
+  border: 1.5px solid rgba(25,72,102,0.18);
+  padding: 1.75rem 2rem;
+  max-width: 440px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(25,72,102,0.10);
 }
-.modal-box h3 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--moodle-blue); margin-bottom: 6px; }
-.modal-box p  { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.25rem; line-height: 1.55; }
-.modal-box input {
+.admin-panel-inner h3 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--moodle-blue); margin-bottom: 6px; }
+.admin-panel-inner p  { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.25rem; line-height: 1.55; }
+.admin-panel-inner input {
   width: 100%; padding: 11px 14px; border-radius: 10px;
   border: 1.5px solid var(--border); font-family: var(--font-body);
-  font-size: 15px; text-align: center; color: var(--ink); background: var(--bg);
-  letter-spacing: 4px; margin-bottom: 1rem; outline: none;
+  font-size: 16px; text-align: center; color: var(--ink); background: var(--bg);
+  letter-spacing: 5px; margin-bottom: 1rem; outline: none; display: block;
 }
-.modal-box input:focus { border-color: var(--moodle-blue); background: #fff; }
-.modal-btns { display: flex; gap: 10px; justify-content: center; }
-.modal-confirm {
+.admin-panel-inner input:focus { border-color: var(--moodle-blue); background: #fff; }
+.admin-panel-btns { display: flex; gap: 10px; justify-content: center; }
+.admin-confirm {
   background: var(--moodle-blue); color: #fff; border: none;
   padding: 10px 28px; border-radius: 10px;
   font-family: var(--font-body); font-size: 14px; font-weight: 700; cursor: pointer;
 }
-.modal-cancel {
+.admin-cancel {
   background: transparent; border: 1.5px solid var(--border); color: var(--ink-mid);
   padding: 9px 22px; border-radius: 10px;
   font-family: var(--font-body); font-size: 14px; font-weight: 700; cursor: pointer;
@@ -472,6 +478,9 @@ body {
 </style>
 </head>
 <body>
+
+<!-- TOAST BAR (top of page, works in iframes) -->
+<div class="toast-bar" id="toast-bar"></div>
 
 <!-- HERO -->
 <div class="hero">
@@ -538,22 +547,19 @@ body {
 <div id="kgrid" class="kgrid"></div>
 <div id="empty-state" class="empty-state" style="display:none">No kudos here yet — be the first to celebrate a teammate!</div>
 
-<!-- ADMIN PIN MODAL -->
-<div class="modal-bg" id="admin-modal" style="display:none">
-  <div class="modal-box">
+<!-- ADMIN PIN PANEL (inline, no fixed positioning — works in iframes) -->
+<div class="admin-panel" id="admin-panel" style="display:none">
+  <div class="admin-panel-inner">
     <h3>Admin access</h3>
     <p>Enter the admin PIN to unlock reveal controls. Share only with leadership.</p>
     <input type="password" id="pin-input" placeholder="· · · · · ·" maxlength="6" onkeydown="if(event.key==='Enter') confirmAdmin()">
     <p class="pin-error" id="pin-error">Incorrect PIN — please try again</p>
-    <div class="modal-btns">
-      <button class="modal-confirm" onclick="confirmAdmin()">Confirm</button>
-      <button class="modal-cancel" onclick="closeAdminModal()">Cancel</button>
+    <div class="admin-panel-btns">
+      <button class="admin-confirm" onclick="confirmAdmin()">Confirm</button>
+      <button class="admin-cancel" onclick="closeAdminPanel()">Cancel</button>
     </div>
   </div>
 </div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
 
 <script>
 /* ══════════════════════════════════════════════════════
@@ -571,7 +577,7 @@ const VALUES = [
 /* ══════════════════════════════════════════════════════
    ADMIN PIN — change to your own 4–6 digit PIN
 ══════════════════════════════════════════════════════ */
-const ADMIN_PIN = “1984”;
+const ADMIN_PIN = "1984";
 
 /* ── internal constants ── */
 const ROTS = [-3.5, 2.2, -1.8, 3.1, -2.4, 1.6, -3.2, 2.8, -1.3, 1.9, -2.8, 2.5];
@@ -590,18 +596,22 @@ const SAMPLE = [
 /* ── state ── */
 let kudos = [], isAdmin = false, activeVal = "All", formOpen = false, selVal = null;
 
-/* ── storage ── */
+/* ── storage — simple localStorage, works on GitHub Pages ── */
 const SKEY = "moodle_wof_v1";
-async function load() {
-  try { const r = await window.storage.get(SKEY); kudos = r?.value ? JSON.parse(r.value) : [...SAMPLE]; }
-  catch { try { const ls = localStorage.getItem(SKEY); kudos = ls ? JSON.parse(ls) : [...SAMPLE]; } catch { kudos = [...SAMPLE]; } }
+
+function load() {
+  try {
+    const saved = localStorage.getItem(SKEY);
+    kudos = saved ? JSON.parse(saved) : [...SAMPLE];
+  } catch {
+    kudos = [...SAMPLE];
+  }
   buildValuePicker();
   render();
 }
-async function save() {
-  const d = JSON.stringify(kudos);
-  try { await window.storage.set(SKEY, d); } catch {}
-  try { localStorage.setItem(SKEY, d); } catch {}
+
+function save() {
+  try { localStorage.setItem(SKEY, JSON.stringify(kudos)); } catch {}
 }
 
 /* ── value picker (form) ── */
@@ -711,7 +721,6 @@ function toggleForm() {
   document.getElementById("form-outer").style.display = formOpen ? "block" : "none";
   document.getElementById("kudo-btn").textContent = formOpen ? "Close" : "Give a kudo";
   if (formOpen) {
-    document.getElementById("form-outer").scrollIntoView({ behavior: "smooth", block: "start" });
     selVal = null;
     document.querySelectorAll(".vpick").forEach(b => b.classList.remove("selected"));
   }
@@ -743,16 +752,25 @@ function submitKudo() {
 
 /* ── admin ── */
 function openAdminModal() {
-  if (isAdmin) { isAdmin = false; document.getElementById("admin-btn").classList.remove("on"); document.getElementById("admin-btn").textContent = "Admin"; render(); toast("Admin mode off"); return; }
-  document.getElementById("admin-modal").style.display = "flex";
+  if (isAdmin) {
+    isAdmin = false;
+    document.getElementById("admin-btn").classList.remove("on");
+    document.getElementById("admin-btn").textContent = "Admin";
+    render(); toast("Admin mode off");
+    return;
+  }
+  document.getElementById("admin-panel").style.display = "block";
   document.getElementById("pin-input").value = "";
   document.getElementById("pin-error").style.display = "none";
   setTimeout(() => document.getElementById("pin-input").focus(), 50);
 }
-function closeAdminModal() { document.getElementById("admin-modal").style.display = "none"; }
+function closeAdminPanel() {
+  document.getElementById("admin-panel").style.display = "none";
+}
 function confirmAdmin() {
   if (document.getElementById("pin-input").value === ADMIN_PIN) {
-    closeAdminModal(); isAdmin = true;
+    closeAdminPanel();
+    isAdmin = true;
     document.getElementById("admin-btn").classList.add("on");
     document.getElementById("admin-btn").textContent = "Admin ON";
     render(); toast("Admin mode on — you can now reveal kudos");
@@ -787,8 +805,9 @@ function revealCard(id) {
 
 /* ── toast ── */
 function toast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.classList.add("show");
+  const t = document.getElementById("toast-bar");
+  t.textContent = msg;
+  t.classList.add("show");
   setTimeout(() => t.classList.remove("show"), 3200);
 }
 
