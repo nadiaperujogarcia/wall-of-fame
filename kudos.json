@@ -1,0 +1,71 @@
+{
+  "submitUrl": "PASTE_YOUR_MICROSOFT_FORM_URL_HERE",
+  "kudos": [
+    {
+      "id": 1,
+      "name": "Sara Rodríguez",
+      "initials": "SR",
+      "role": "Product",
+      "value": "Innovation",
+      "message": "Sara shipped the entire onboarding revamp solo and kept every stakeholder aligned. A true force of nature.",
+      "from": "Ana Lima · VP Product",
+      "pending": false,
+      "color": 0
+    },
+    {
+      "id": 2,
+      "name": "James Kwon",
+      "initials": "JK",
+      "role": "Engineering",
+      "value": "Openness",
+      "message": "Mentored two new engineers while delivering his own sprint without missing a beat. He defines team spirit.",
+      "from": "Lena Hofer · Eng Manager",
+      "pending": false,
+      "color": 1
+    },
+    {
+      "id": 3,
+      "name": "Mia Bertrand",
+      "initials": "MB",
+      "role": "Customer Success",
+      "value": "Respect",
+      "message": "Mia rescued a key account through sheer proactivity. Her NPS scores sit permanently at the top.",
+      "from": "Carlos Vega · CCO",
+      "pending": false,
+      "color": 2
+    },
+    {
+      "id": 4,
+      "name": "Liam Torres",
+      "initials": "LT",
+      "role": "Design",
+      "value": "Innovation",
+      "message": "Rebuilt the entire design system in two weeks. Every designer now works faster because of him.",
+      "from": "Sara Kim · Design Lead",
+      "pending": false,
+      "color": 3
+    },
+    {
+      "id": 5,
+      "name": "Priya Patel",
+      "initials": "PP",
+      "role": "Data",
+      "value": "Integrity",
+      "message": "Built our analytics dashboard from scratch. Every team makes sharper, faster decisions because of her.",
+      "from": "Marco Di Luca · CTO",
+      "pending": true,
+      "color": 4
+    },
+    {
+      "id": 6,
+      "name": "David Osei",
+      "initials": "DO",
+      "role": "Marketing",
+      "value": "Openness",
+      "message": "Organised three team events this quarter off his own initiative. The heartbeat of our culture.",
+      "from": "Jessica Wong · CHRO",
+      "pending": true,
+      "color": 5
+    }
+  ]
+}
