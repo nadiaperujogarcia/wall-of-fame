@@ -79,7 +79,7 @@ body { font-family: var(--font-body); background: var(--bg); padding-bottom: 4re
   <h1>Wall of <em>Fame</em></h1>
   <p class="hero-sub">Celebrating the people who make us better, every single day</p>
   <div class="stats" id="stats"></div>
-  <a class="submit-kudo-btn" id="submit-btn" href="https://forms.gle/UBJjB14t7oSsKXpLA" target="_blank">Give a kudo</a>
+  <a class="submit-kudo-btn" href="https://forms.gle/UBJjB14t7oSsKXpLA" target="_blank">Give a kudo</a>
   <p class="submit-note">Opens the kudo form in a new tab</p>
 </div>
 
@@ -89,21 +89,12 @@ body { font-family: var(--font-body); background: var(--bg); padding-bottom: 4re
 <div id="empty-state" class="empty-state" style="display:none">No kudos yet!</div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   TWO THINGS TO FILL IN:
-
-   1. SHEET_ID — open your Google Sheet, copy the long ID
-      from the URL between /d/ and /edit
-      Example URL: docs.google.com/spreadsheets/d/1BxiM.../edit
-      Paste just the ID part: "1BxiM..."
-
-   2. FORM_URL  — your Google Form share link
-      Already set on the Give a kudo button above,
-      but also paste it here for the auto-refresh to work.
-═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   Your Google Sheet ID — do not change this
+═══════════════════════════════════════════════════ */
 const SHEET_ID = "1hWiIyFojyDglP6gZZV2URxM87aEJQgxmof4fHSTF25k";
 
-/* ─── everything below runs automatically — no changes needed ─── */
+/* ─── no changes needed below this line ─── */
 
 const ROTS = [-3.5, 2.2, -1.8, 3.1, -2.4, 1.6, -3.2, 2.8, -1.3, 1.9, -2.8, 2.5];
 let kudos = [], activeVal = "All";
@@ -112,7 +103,6 @@ async function loadSheet(sheetName) {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
   const res  = await fetch(url);
   const text = await res.text();
-  // Strip Google's JSONP wrapper  /*O_o*/\ngoogle.visualization.Query.setResponse({...});
   const json = JSON.parse(text.match(/setResponse\(([\s\S]+)\)/)[1]);
   const cols = json.table.cols.map(c => c.label.toLowerCase().trim());
   return (json.table.rows || []).map(row => {
@@ -123,32 +113,29 @@ async function loadSheet(sheetName) {
 }
 
 async function load() {
- if (!SHEET_ID || SHEET_ID === "PASTE_YOUR_SHEET_ID_HERE") {
-    document.getElementById("kgrid").innerHTML =
-      '<div class="error-state">Paste your Google Sheet ID into index.html (see the comment at the top of the script).</div>';
-    return;
-  }
   try {
-  const rows = await loadSheet("Form_Responses");
-kudos = rows
-  .filter(r => r["who are you recognising?"])
-  .map((r, i) => ({
-    id:       i,
-    name:     r["who are you recognising?"]           || "",
-    initials: (r["their initials (2 letters, e.g. sr)"] || "?").toUpperCase().slice(0,2),
-    role:     r["their team and role"]                 || "",
-    value:    r["which value did they embody?"]        || "",
-    message:  r["your shout-out message"]              || "",
-    from:     r["your name and title"]                 || "",
-    pending:  r["pending"] === true || r["pending"] === "TRUE",
-    color:    i % 8,
-  }));
+    const rows = await loadSheet("Form_Responses");
+    kudos = rows
+      .filter(r => r["who are you recognising?"])
+      .map((r, i) => ({
+        id:       i,
+        name:     r["who are you recognising?"]              || "",
+        initials: (r["their initials (2 letters, e.g. sr)"]  || "?").toString().toUpperCase().slice(0, 2),
+        role:     r["their team and role"]                    || "",
+        value:    r["which value did they embody?"]           || "",
+        message:  r["your shout-out message"]                 || "",
+        from:     r["your name and title"]                    || "",
+        /* pending logic:
+           - checkbox ticked (true)  = mystery box — NOT revealed yet
+           - checkbox unticked (false) = revealed card
+           - no checkbox column yet = show as mystery box by default        */
+        pending:  r["pending"] !== false,
+        color:    i % 8,
+      }));
   } catch (err) {
     document.getElementById("kgrid").innerHTML =
-      '<div class="error-state">Could not load the sheet.<br><br>' +
-      'Make sure your Google Sheet is set to <strong>"Anyone with the link can view"</strong>:<br>' +
-      'In the sheet → Share → Change to Anyone with the link → Viewer → Done.<br><br>' +
-      'Also check that SHEET_ID is correct in index.html.</div>';
+      '<div class="error-state">Could not load the board.<br><br>' +
+      'Make sure the Google Sheet is set to <strong>"Anyone with the link can view"</strong>.</div>';
     return;
   }
   render();
@@ -157,7 +144,7 @@ kudos = rows
 function renderStats() {
   const vis = kudos.filter(k => !k.pending);
   const ppl = new Set(vis.map(k => k.name)).size;
-  const pnd = kudos.filter(k => k.pending).length;
+  const pnd = kudos.filter(k =>  k.pending).length;
   document.getElementById("stats").innerHTML = [
     { n: vis.length, l: "kudos given" },
     { n: ppl,        l: "people celebrated" },
@@ -219,7 +206,7 @@ function render() {
   const cnt = f.filter(k => !k.pending).length;
   document.getElementById("board-label").textContent =
     activeVal === "All" ? `${cnt} kudo${cnt !== 1 ? "s" : ""}` : `${activeVal} · ${cnt}`;
-  const grid = document.getElementById("kgrid");
+  const grid  = document.getElementById("kgrid");
   const empty = document.getElementById("empty-state");
   if (!f.length) { grid.style.display = "none"; empty.style.display = "block"; }
   else { grid.style.display = ""; empty.style.display = "none"; grid.innerHTML = f.map((k,i) => cardHTML(k,i)).join(""); }
