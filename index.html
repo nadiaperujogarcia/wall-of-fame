@@ -7,110 +7,44 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --moodle-orange:  #f98012;
-  --moodle-blue:    #194866;
-  --moodle-black:   #282828;
-  --moodle-dgrey:   #545454;
-  --moodle-lgrey:   #8a8a8e;
-  --bg:      #F2F6F9;
-  --surface: #FFFFFF;
-  --border:  rgba(25,72,102,0.12);
-  --ink:       var(--moodle-black);
-  --ink-mid:   var(--moodle-dgrey);
-  --ink-soft:  var(--moodle-lgrey);
-  --ink-ghost: #BBBBBB;
-  --accent:    var(--moodle-blue);
-  --accent-bg: #E8F1F6;
-  --note-0: #FFE566; --note-1: #6EE7B7; --note-2: #FCA5C5;
-  --note-3: #93C5FD; --note-4: #FDB77A; --note-5: #C4B5FD;
-  --note-6: #86EFAC; --note-7: #FDE68A;
-  --pin-0: #B45309; --pin-1: #059669; --pin-2: #BE185D;
-  --pin-3: #1D4ED8; --pin-4: #C2410C; --pin-5: #6D28D9;
-  --pin-6: #15803D; --pin-7: #D97706;
+  --moodle-orange: #f98012; --moodle-blue: #194866;
+  --moodle-black: #282828; --moodle-dgrey: #545454; --moodle-lgrey: #8a8a8e;
+  --bg: #F2F6F9; --surface: #FFFFFF; --border: rgba(25,72,102,0.12);
+  --ink: var(--moodle-black); --ink-mid: var(--moodle-dgrey);
+  --ink-soft: var(--moodle-lgrey); --ink-ghost: #BBBBBB;
+  --accent: var(--moodle-blue); --accent-bg: #E8F1F6;
+  --note-0:#FFE566; --note-1:#6EE7B7; --note-2:#FCA5C5; --note-3:#93C5FD;
+  --note-4:#FDB77A; --note-5:#C4B5FD; --note-6:#86EFAC; --note-7:#FDE68A;
+  --pin-0:#B45309; --pin-1:#059669; --pin-2:#BE185D; --pin-3:#1D4ED8;
+  --pin-4:#C2410C; --pin-5:#6D28D9; --pin-6:#15803D; --pin-7:#D97706;
   --radius-card: 4px;
-  --font-serif: 'DM Serif Display', serif;
-  --font-body:  'Open Sans', sans-serif;
-  --shadow-card:       3px 6px 20px rgba(25,72,102,0.14), 0 1px 3px rgba(0,0,0,0.08);
+  --font-serif: 'DM Serif Display', serif; --font-body: 'Open Sans', sans-serif;
+  --shadow-card: 3px 6px 20px rgba(25,72,102,0.14), 0 1px 3px rgba(0,0,0,0.08);
   --shadow-card-hover: 5px 14px 34px rgba(25,72,102,0.22), 0 2px 6px rgba(0,0,0,0.10);
 }
-
-body {
-  font-family: var(--font-body);
-  background: var(--bg);
-  padding-bottom: 4rem;
-  color: var(--ink);
-}
-
-/* ── HERO ── */
+body { font-family: var(--font-body); background: var(--bg); padding-bottom: 4rem; color: var(--ink); }
 .hero { max-width: 680px; margin: 2.5rem auto 1.75rem; text-align: center; padding: 0 1.25rem; }
-
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--moodle-orange); color: var(--moodle-black);
-  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-  padding: 6px 18px; border-radius: 30px; margin-bottom: 1rem;
-}
-.hero h1 {
-  font-family: var(--font-serif); font-size: clamp(2.4rem,5.5vw,3.8rem);
-  font-weight: 400; color: var(--moodle-blue); line-height: 1.05;
-  margin-bottom: 0.6rem; letter-spacing: -0.5px;
-}
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--moodle-orange); color: var(--moodle-black); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 18px; border-radius: 30px; margin-bottom: 1rem; }
+.hero h1 { font-family: var(--font-serif); font-size: clamp(2.4rem,5.5vw,3.8rem); font-weight: 400; color: var(--moodle-blue); line-height: 1.05; margin-bottom: 0.6rem; letter-spacing: -0.5px; }
 .hero h1 em { font-style: italic; color: var(--moodle-black); }
 .hero-sub { font-size: 14px; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.5rem; line-height: 1.65; }
-
 .stats { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.stat-pill {
-  background: var(--surface); border: 1.5px solid var(--border);
-  border-radius: 30px; padding: 7px 20px;
-  font-size: 12px; font-weight: 600; color: var(--ink-mid);
-}
+.stat-pill { background: var(--surface); border: 1.5px solid var(--border); border-radius: 30px; padding: 7px 20px; font-size: 12px; font-weight: 600; color: var(--ink-mid); }
 .stat-pill strong { font-family: var(--font-serif); font-size: 19px; font-weight: 400; color: var(--moodle-blue); margin-right: 5px; }
-
-/* ── SUBMIT BUTTON ── */
-.submit-kudo-btn {
-  display: inline-block;
-  background: var(--moodle-blue); color: #fff;
-  font-family: var(--font-body); font-size: 13px; font-weight: 700;
-  padding: 11px 28px; border-radius: 30px;
-  text-decoration: none; margin-bottom: 0.5rem;
-  transition: opacity 0.15s;
-}
+.submit-kudo-btn { display: inline-block; background: var(--moodle-blue); color: #fff; font-family: var(--font-body); font-size: 13px; font-weight: 700; padding: 11px 28px; border-radius: 30px; text-decoration: none; transition: opacity 0.15s; }
 .submit-kudo-btn:hover { opacity: 0.88; }
 .submit-note { font-size: 12px; color: var(--ink-ghost); margin-top: 8px; }
-
-/* ── FILTER BAR ── */
-.filter-bar {
-  max-width: 940px; margin: 0 auto 2rem; padding: 0 1.25rem;
-  display: flex; gap: 7px; flex-wrap: wrap;
-}
-.vbtn {
-  padding: 7px 16px; border-radius: 30px;
-  font-family: var(--font-body); font-size: 12px; font-weight: 700;
-  border: 1.5px solid var(--border); background: var(--surface);
-  color: var(--ink-mid); cursor: pointer; transition: all 0.15s;
-}
+.filter-bar { max-width: 940px; margin: 0 auto 2rem; padding: 0 1.25rem; display: flex; gap: 7px; flex-wrap: wrap; }
+.vbtn { padding: 7px 16px; border-radius: 30px; font-family: var(--font-body); font-size: 12px; font-weight: 700; border: 1.5px solid var(--border); background: var(--surface); color: var(--ink-mid); cursor: pointer; transition: all 0.15s; }
 .vbtn:hover { border-color: var(--moodle-blue); color: var(--moodle-blue); }
 .vbtn.on { background: var(--moodle-blue); color: #fff; border-color: var(--moodle-blue); }
-
-/* ── DIVIDER ── */
 .divider { max-width: 940px; margin: 0 auto 2rem; padding: 0 1.25rem; display: flex; align-items: center; gap: 14px; }
 .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(25,72,102,0.14); }
 .divider-label { font-size: 11px; font-weight: 700; color: var(--ink-ghost); letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
-
-/* ── CARD GRID ── */
 .kgrid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill,minmax(210px,1fr)); gap: 38px; padding: 0 1.25rem; }
-
-/* ── STICKY NOTE CARD ── */
-.kcard {
-  border-radius: var(--radius-card); padding: 1.3rem 1.15rem 1.15rem;
-  position: relative; box-shadow: var(--shadow-card);
-  transition: transform 0.22s cubic-bezier(.34,1.56,.64,1), box-shadow 0.22s;
-  cursor: default; margin-top: 16px; overflow: hidden; will-change: transform;
-}
+.kcard { border-radius: var(--radius-card); padding: 1.3rem 1.15rem 1.15rem; position: relative; box-shadow: var(--shadow-card); transition: transform 0.22s cubic-bezier(.34,1.56,.64,1), box-shadow 0.22s; cursor: default; margin-top: 16px; overflow: hidden; will-change: transform; }
 .kcard:hover { transform: rotate(0deg) translateY(-10px) scale(1.04) !important; box-shadow: var(--shadow-card-hover) !important; z-index: 10; }
-
 .kn0{background:var(--note-0)} .kn0 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-0) 55%,#fff),var(--pin-0))}
 .kn1{background:var(--note-1)} .kn1 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-1) 55%,#fff),var(--pin-1))}
 .kn2{background:var(--note-2)} .kn2 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-2) 55%,#fff),var(--pin-2))}
@@ -119,38 +53,22 @@ body {
 .kn5{background:var(--note-5)} .kn5 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-5) 55%,#fff),var(--pin-5))}
 .kn6{background:var(--note-6)} .kn6 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-6) 55%,#fff),var(--pin-6))}
 .kn7{background:var(--note-7)} .kn7 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-7) 55%,#fff),var(--pin-7))}
-
-.pin {
-  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  width: 22px; height: 22px; border-radius: 50%;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.36), inset 0 2px 4px rgba(255,255,255,0.3); z-index: 2;
-}
+.pin { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 3px 8px rgba(0,0,0,0.36), inset 0 2px 4px rgba(255,255,255,0.3); z-index: 2; }
 .value-tag { display: inline-block; font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 700; margin-bottom: 10px; background: rgba(0,0,0,0.10); color: rgba(0,0,0,0.65); letter-spacing: 0.3px; }
 .av { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; background: rgba(0,0,0,0.11); color: var(--moodle-black); }
 .bigq { font-family: Georgia,serif; font-size: 64px; line-height: 1; color: rgba(0,0,0,0.07); position: absolute; top: 52px; left: 4px; pointer-events: none; user-select: none; }
-
-/* ── MYSTERY CARD ── */
-.mystery {
-  background: var(--surface); border-radius: var(--radius-card); padding: 1.5rem 1rem;
-  text-align: center; box-shadow: var(--shadow-card); min-height: 210px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  border: 2px dashed rgba(25,72,102,0.20); position: relative; margin-top: 16px;
-}
+.mystery { background: var(--surface); border-radius: var(--radius-card); padding: 1.5rem 1rem; text-align: center; box-shadow: var(--shadow-card); min-height: 210px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px dashed rgba(25,72,102,0.20); position: relative; margin-top: 16px; }
 .mystery .pin { background: radial-gradient(circle at 38% 32%,#93C5FD,#1D4ED8); }
 @keyframes float { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-9px) rotate(5deg)} }
 .mystery-icon { width: 52px; height: 52px; background: var(--accent-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; animation: float 2.6s ease-in-out infinite; }
 .mystery-dots { display: flex; gap: 5px; margin-top: 12px; justify-content: center; }
 .mystery-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-bg); border: 1.5px solid var(--border); display: inline-block; }
-
-/* ── CONFETTI ── */
 .confbox { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: var(--radius-card); }
 .cp { position: absolute; top: -10px; width: 9px; height: 9px; border-radius: 2px; }
 @keyframes cardPop { 0%{transform:scale(0.3) rotate(-15deg)!important;opacity:0} 65%{transform:scale(1.08)!important} 100%{transform:scale(1)!important;opacity:1} }
 .popped { animation: cardPop 0.55s cubic-bezier(.34,1.56,.64,1) both !important; }
-
-/* ── LOADING / ERROR ── */
-.loading { text-align: center; padding: 3rem; color: var(--ink-soft); font-size: 14px; font-weight: 600; }
 .empty-state { text-align: center; padding: 4rem 1rem; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
+.error-state  { text-align: center; padding: 3rem 1rem; font-size: 13px; color: #B91C1C; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -165,44 +83,44 @@ body {
   <h1>Wall of <em>Fame</em></h1>
   <p class="hero-sub">Celebrating the people who make us better, every single day</p>
   <div class="stats" id="stats"></div>
-  <!-- Submit button links to Microsoft Form — update URL in kudos.json -->
-  <a class="submit-kudo-btn" id="submit-btn" href="#" target="_blank">Give a kudo</a>
-  <p class="submit-note" id="submit-note">Opens the kudo submission form</p>
+  <a class="submit-kudo-btn" id="submit-btn" href="#" target="_blank" style="display:none">Give a kudo</a>
+  <p class="submit-note" id="submit-note" style="display:none">Opens the kudo form in a new tab</p>
 </div>
 
 <div class="filter-bar" id="filter-bar"></div>
 <div class="divider"><span class="divider-label" id="board-label">Loading...</span></div>
-<div id="kgrid" class="kgrid"><div class="loading">Loading kudos...</div></div>
+<div id="kgrid" class="kgrid"><div class="empty-state">Loading the board...</div></div>
 <div id="empty-state" class="empty-state" style="display:none">No kudos yet — be the first to celebrate a teammate!</div>
 
 <script>
+/* ══════════════════════════════════════════════════════════════
+   STEP 1: Paste your Google Apps Script web app URL below.
+   It looks like: https://script.google.com/macros/s/XXXXX/exec
+══════════════════════════════════════════════════════════════ */
+const DATA_URL = "https://script.google.com/a/macros/moodle.com/s/AKfycbwDyb4CfpjdngJvEbTEvnRt2TF6afUusUn_ZHWIJ1wJWWuhu2nsKW-SFnW16uV7YKSy/exec";
+
 const ROTS = [-3.5, 2.2, -1.8, 3.1, -2.4, 1.6, -3.2, 2.8, -1.3, 1.9, -2.8, 2.5];
-const CONF  = ["#FFE566","#6EE7B7","#FCA5C5","#93C5FD","#FDB77A","#C4B5FD","#86EFAC","#FDE68A"];
+const CONF = ["#FFE566","#6EE7B7","#FCA5C5","#93C5FD","#FDB77A","#C4B5FD","#86EFAC","#FDE68A"];
+let kudos = [], activeVal = "All";
 
-let kudos = [], activeVal = "All", submitUrl = "#";
-
-/* ─── Load data from kudos.json ─────────────────────────
-   This file lives in the same GitHub repo.
-   Admin edits kudos.json on GitHub to add/reveal cards.
-─────────────────────────────────────────────────────── */
 async function load() {
-  try {
-    const res  = await fetch("kudos.json?v=" + Date.now()); // cache-bust
-    const data = await res.json();
-    kudos     = data.kudos || [];
-    submitUrl = data.submitUrl || "#";
-  } catch {
-    kudos = [];
+  if (!DATA_URL || DATA_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
+    document.getElementById("kgrid").innerHTML = '<div class="error-state">Add your Apps Script URL to index.html to load the board.</div>';
+    return;
   }
-  // Update submit button
-  const btn  = document.getElementById("submit-btn");
-  const note = document.getElementById("submit-note");
-  if (submitUrl && submitUrl !== "#" && submitUrl !== "PASTE_YOUR_MICROSOFT_FORM_URL_HERE") {
-    btn.href = submitUrl;
-    note.textContent = "Opens the kudo submission form in a new tab";
-  } else {
-    btn.style.display = "none";
-    note.style.display = "none";
+  try {
+    const res  = await fetch(DATA_URL);
+    const data = await res.json();
+    kudos = data.kudos || [];
+    const submitUrl = data.submitUrl || "";
+    if (submitUrl) {
+      document.getElementById("submit-btn").href = submitUrl;
+      document.getElementById("submit-btn").style.display = "inline-block";
+      document.getElementById("submit-note").style.display = "block";
+    }
+  } catch {
+    document.getElementById("kgrid").innerHTML = '<div class="error-state">Could not load kudos. Check your Apps Script URL and make sure it is deployed as "Anyone".</div>';
+    return;
   }
   render();
 }
@@ -212,17 +130,16 @@ function renderStats() {
   const ppl = new Set(vis.map(k => k.name)).size;
   const pnd = kudos.filter(k => k.pending).length;
   document.getElementById("stats").innerHTML = [
-    {n: vis.length, l: "kudos given"},
-    {n: ppl,        l: "people celebrated"},
-    {n: pnd,        l: "coming at next all-hands"},
+    { n: vis.length, l: "kudos given" },
+    { n: ppl,        l: "people celebrated" },
+    { n: pnd,        l: "coming at next all-hands" },
   ].map(s => `<div class="stat-pill"><strong>${s.n}</strong>${s.l}</div>`).join("");
 }
 
 function renderFilters() {
-  const used = new Set(kudos.filter(k => !k.pending).map(k => k.value));
-  const vals = [...used].sort();
-  if (vals.length < 2) { document.getElementById("filter-bar").innerHTML = ""; return; }
-  document.getElementById("filter-bar").innerHTML = ["All", ...vals]
+  const used = [...new Set(kudos.filter(k => !k.pending).map(k => k.value))].sort();
+  if (used.length < 2) { document.getElementById("filter-bar").innerHTML = ""; return; }
+  document.getElementById("filter-bar").innerHTML = ["All", ...used]
     .map(v => `<button class="vbtn${activeVal === v ? " on" : ""}" onclick="setFilter('${v}')">${v}</button>`)
     .join("");
 }
@@ -246,65 +163,44 @@ function cardHTML(k, idx) {
       <div class="mystery-dots"><span></span><span></span><span></span></div>
     </div>`;
   }
-  return `<div class="kcard kn${(k.color||0) % 8}" id="kc-${k.id}" style="transform:rotate(${rot}deg)">
+  const colorIdx = (typeof k.color === "number" ? k.color : 0) % 8;
+  return `<div class="kcard kn${colorIdx}" id="kc-${k.id}" style="transform:rotate(${rot}deg)">
     <div class="confbox" id="cf-${k.id}"></div>
     <div class="pin"></div>
     <span class="value-tag">${k.value || ""}</span>
     <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
-      <div class="av">${k.initials}</div>
+      <div class="av">${k.initials || "?"}</div>
       <div>
         <p style="font-size:13px;font-weight:700;color:#282828;line-height:1.25">${k.name}</p>
-        <p style="font-size:11px;color:#8a8a8e;font-weight:600">${k.role}</p>
+        <p style="font-size:11px;color:#8a8a8e;font-weight:600">${k.role || ""}</p>
       </div>
     </div>
     <div style="position:relative">
       <div class="bigq">"</div>
-      <p style="font-size:12px;color:rgba(40,40,40,0.75);line-height:1.65;font-style:italic;padding-left:10px">${k.message}</p>
+      <p style="font-size:12px;color:rgba(40,40,40,0.75);line-height:1.65;font-style:italic;padding-left:10px">${k.message || ""}</p>
     </div>
-    <p style="font-size:11px;color:rgba(40,40,40,0.50);margin-top:9px;font-weight:600">— ${k.from}</p>
+    <p style="font-size:11px;color:rgba(40,40,40,0.50);margin-top:9px;font-weight:600">— ${k.from || ""}</p>
   </div>`;
 }
 
 function render() {
-  renderStats();
-  renderFilters();
+  renderStats(); renderFilters();
   let f = kudos.slice();
   if (activeVal !== "All") f = f.filter(k => k.value === activeVal);
   f.sort((a, b) => (a.pending ? 1 : 0) - (b.pending ? 1 : 0));
   const cnt = f.filter(k => !k.pending).length;
   document.getElementById("board-label").textContent =
     activeVal === "All" ? `${cnt} kudo${cnt !== 1 ? "s" : ""}` : `${activeVal} · ${cnt}`;
-  const grid  = document.getElementById("kgrid");
+  const grid = document.getElementById("kgrid");
   const empty = document.getElementById("empty-state");
   if (!f.length) { grid.style.display = "none"; empty.style.display = "block"; }
   else { grid.style.display = ""; empty.style.display = "none"; grid.innerHTML = f.map((k,i) => cardHTML(k,i)).join(""); }
-  // Pop animation on freshly-revealed cards (ones just flipped to pending:false)
-  requestAnimationFrame(() => {
-    document.querySelectorAll(".kcard.new-reveal").forEach(card => {
-      card.classList.add("popped");
-      const box = card.querySelector(".confbox");
-      if (box) fireConfetti(box);
-    });
-  });
-}
-
-function fireConfetti(box) {
-  for (let i = 0; i < 28; i++) {
-    const p = document.createElement("div"); p.className = "cp";
-    const dur = 0.8 + Math.random() * 0.9, del = Math.random() * 0.38;
-    p.style.cssText = `left:${Math.random()*100}%;background:${CONF[Math.floor(Math.random()*CONF.length)]};`;
-    box.appendChild(p);
-    setTimeout(() => { p.style.transition=`transform ${dur}s linear ${del}s,opacity ${dur}s linear ${del}s`; p.style.transform=`translateY(300px) rotate(${Math.random()*720}deg)`; p.style.opacity="0"; }, 20);
-    setTimeout(() => p.remove(), (dur+del)*1000+150);
-  }
 }
 
 function setFilter(v) { activeVal = v; render(); }
 
 load();
-
-// Auto-refresh every 60 seconds so the board updates after admin edits kudos.json
-setInterval(load, 60000);
+setInterval(load, 30000);
 </script>
 </body>
 </html>
