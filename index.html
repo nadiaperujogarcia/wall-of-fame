@@ -6,59 +6,29 @@
 <title>Wall of Fame</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ─────────────────────────────────────────────────────
-   CUSTOMISE YOUR COMPANY VALUES HERE
-   Replace the labels in the VALUES array in the
-   JavaScript section at the bottom of this file.
-───────────────────────────────────────────────────── */
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* ── Moodle brand colours ── */
   --moodle-orange:  #f98012;
   --moodle-blue:    #194866;
   --moodle-black:   #282828;
   --moodle-dgrey:   #545454;
   --moodle-lgrey:   #8a8a8e;
-  --moodle-lblue:   #65a1b3;
-  --moodle-bblue:   #69e0ff;
-
-  /* ── Page chrome ── */
-  --bg:       #F2F6F9;   /* light blue-white — nothing brown */
-  --surface:  #FFFFFF;
-  --border:   rgba(25,72,102,0.12);
-
-  /* ── Typography ── */
+  --bg:      #F2F6F9;
+  --surface: #FFFFFF;
+  --border:  rgba(25,72,102,0.12);
   --ink:       var(--moodle-black);
   --ink-mid:   var(--moodle-dgrey);
   --ink-soft:  var(--moodle-lgrey);
   --ink-ghost: #BBBBBB;
-
-  /* ── Primary interactive colour: Moodle Blue ── */
-  --accent:    var(--moodle-blue);    /* #194866 — white text on this = 9.5:1 ✓ AA */
+  --accent:    var(--moodle-blue);
   --accent-bg: #E8F1F6;
-
-  /* ── Sticky note palette — vibrant pastels, all AA with #282828 ink ── */
-  --note-0: #FFE566;   /* yellow       */
-  --note-1: #6EE7B7;   /* teal-mint    */
-  --note-2: #FCA5C5;   /* hot pink     */
-  --note-3: #93C5FD;   /* cornflower   */
-  --note-4: #FDB77A;   /* vivid peach  */
-  --note-5: #C4B5FD;   /* violet       */
-  --note-6: #86EFAC;   /* lime green   */
-  --note-7: #FDE68A;   /* amber        */
-
-  /* ── Pin colours (deeper tone of each note) ── */
-  --pin-0: #B45309;
-  --pin-1: #059669;
-  --pin-2: #BE185D;
-  --pin-3: #1D4ED8;
-  --pin-4: #C2410C;
-  --pin-5: #6D28D9;
-  --pin-6: #15803D;
-  --pin-7: #D97706;
-
+  --note-0: #FFE566; --note-1: #6EE7B7; --note-2: #FCA5C5;
+  --note-3: #93C5FD; --note-4: #FDB77A; --note-5: #C4B5FD;
+  --note-6: #86EFAC; --note-7: #FDE68A;
+  --pin-0: #B45309; --pin-1: #059669; --pin-2: #BE185D;
+  --pin-3: #1D4ED8; --pin-4: #C2410C; --pin-5: #6D28D9;
+  --pin-6: #15803D; --pin-7: #D97706;
   --radius-card: 4px;
   --font-serif: 'DM Serif Display', serif;
   --font-body:  'Open Sans', sans-serif;
@@ -66,273 +36,81 @@
   --shadow-card-hover: 5px 14px 34px rgba(25,72,102,0.22), 0 2px 6px rgba(0,0,0,0.10);
 }
 
-/* ── PAGE ──────────────────────────────────────────── */
 body {
   font-family: var(--font-body);
   background: var(--bg);
-  min-height: 100vh;
-  padding-bottom: 6rem;
+  padding-bottom: 4rem;
   color: var(--ink);
 }
 
-/* ── HERO ──────────────────────────────────────────── */
-.hero {
-  max-width: 680px;
-  margin: 3rem auto 2rem;
-  text-align: center;
-  padding: 0 1.25rem;
-}
+/* ── HERO ── */
+.hero { max-width: 680px; margin: 2.5rem auto 1.75rem; text-align: center; padding: 0 1.25rem; }
 
 .hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--moodle-orange);
-  color: var(--moodle-black);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 6px 18px;
-  border-radius: 30px;
-  margin-bottom: 1.1rem;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--moodle-orange); color: var(--moodle-black);
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 30px; margin-bottom: 1rem;
 }
-
 .hero h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(2.6rem, 6vw, 4rem);
-  font-weight: 400;
-  color: var(--moodle-blue);
-  line-height: 1.05;
-  margin-bottom: 0.65rem;
-  letter-spacing: -0.5px;
+  font-family: var(--font-serif); font-size: clamp(2.4rem,5.5vw,3.8rem);
+  font-weight: 400; color: var(--moodle-blue); line-height: 1.05;
+  margin-bottom: 0.6rem; letter-spacing: -0.5px;
 }
-.hero h1 em {
-  font-style: italic;
-  color: var(--moodle-black);
-}
+.hero h1 em { font-style: italic; color: var(--moodle-black); }
+.hero-sub { font-size: 14px; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.5rem; line-height: 1.65; }
 
-.hero-sub {
-  font-size: 14px;
-  color: var(--ink-soft);
-  font-weight: 600;
-  margin-bottom: 1.75rem;
-  line-height: 1.65;
-}
-
-/* ── STAT PILLS ────────────────────────────────────── */
-.stats { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-
+.stats { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .stat-pill {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 30px;
-  padding: 7px 20px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink-mid);
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 30px; padding: 7px 20px;
+  font-size: 12px; font-weight: 600; color: var(--ink-mid);
 }
-.stat-pill strong {
-  font-family: var(--font-serif);
-  font-size: 19px;
-  font-weight: 400;
-  color: var(--moodle-blue);
-  margin-right: 5px;
-}
+.stat-pill strong { font-family: var(--font-serif); font-size: 19px; font-weight: 400; color: var(--moodle-blue); margin-right: 5px; }
 
-/* ── TOOLBAR ───────────────────────────────────────── */
-.toolbar {
-  max-width: 940px;
-  margin: 0 auto 2rem;
-  padding: 0 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
+/* ── SUBMIT BUTTON ── */
+.submit-kudo-btn {
+  display: inline-block;
+  background: var(--moodle-blue); color: #fff;
+  font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  padding: 11px 28px; border-radius: 30px;
+  text-decoration: none; margin-bottom: 0.5rem;
+  transition: opacity 0.15s;
 }
-.value-filters { display: flex; gap: 7px; flex-wrap: wrap; flex: 1; }
+.submit-kudo-btn:hover { opacity: 0.88; }
+.submit-note { font-size: 12px; color: var(--ink-ghost); margin-top: 8px; }
 
+/* ── FILTER BAR ── */
+.filter-bar {
+  max-width: 940px; margin: 0 auto 2rem; padding: 0 1.25rem;
+  display: flex; gap: 7px; flex-wrap: wrap;
+}
 .vbtn {
-  padding: 7px 16px;
-  border-radius: 30px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  border: 1.5px solid var(--border);
-  background: var(--surface);
-  color: var(--ink-mid);
-  cursor: pointer;
-  transition: all 0.15s;
+  padding: 7px 16px; border-radius: 30px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700;
+  border: 1.5px solid var(--border); background: var(--surface);
+  color: var(--ink-mid); cursor: pointer; transition: all 0.15s;
 }
 .vbtn:hover { border-color: var(--moodle-blue); color: var(--moodle-blue); }
 .vbtn.on { background: var(--moodle-blue); color: #fff; border-color: var(--moodle-blue); }
 
-.toolbar-btns { display: flex; gap: 8px; flex-shrink: 0; }
-
-.btn-kudo {
-  background: var(--moodle-blue);
-  color: #fff;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 30px;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-.btn-kudo:hover { opacity: 0.88; }
-
-.btn-admin {
-  border: 1.5px solid var(--border);
-  color: var(--ink-mid);
-  background: var(--surface);
-  padding: 9px 18px;
-  border-radius: 30px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.btn-admin.on { background: var(--moodle-blue); color: var(--moodle-orange); border-color: var(--moodle-blue); }
-
-/* ── FORM ──────────────────────────────────────────── */
-.form-outer { max-width: 880px; margin: 0 auto 2.5rem; padding: 0 1.25rem; }
-
-.form-card {
-  background: var(--surface);
-  border-radius: 16px;
-  padding: 2rem;
-  border: 1.5px solid var(--border);
-  box-shadow: 0 2px 16px rgba(25,72,102,0.07);
-}
-.form-card h2 {
-  font-family: var(--font-serif);
-  font-size: 1.65rem;
-  font-weight: 400;
-  color: var(--moodle-blue);
-  margin-bottom: 4px;
-}
-.form-card .form-sub { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.5rem; line-height: 1.6; }
-
-.fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-.fi label {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink-mid);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  margin-bottom: 5px;
-}
-.fi input, .fi select, .fi textarea {
-  width: 100%;
-  padding: 10px 13px;
-  border-radius: 10px;
-  border: 1.5px solid rgba(25,72,102,0.18);
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--ink);
-  background: var(--bg);
-  transition: border-color 0.15s, background 0.15s;
-  outline: none;
-}
-.fi input:focus, .fi select:focus, .fi textarea:focus {
-  border-color: var(--moodle-blue);
-  background: #fff;
-}
-.fi textarea { min-height: 88px; resize: vertical; }
-.fi-full { margin-bottom: 14px; }
-
-/* Value picker chips */
-.value-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
-.vpick {
-  padding: 7px 16px;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: 700;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: var(--font-body);
-  color: var(--moodle-black);
-}
-.vpick:hover  { border-color: var(--moodle-blue); }
-.vpick.selected { border-color: var(--moodle-blue); box-shadow: 0 0 0 2px var(--moodle-blue); }
-
-.form-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 12px;
-  margin-top: 1.5rem; padding-top: 1.25rem;
-  border-top: 1.5px solid var(--border);
-}
-.form-note { font-size: 12px; color: var(--ink-ghost); font-weight: 600; display: flex; align-items: center; gap: 6px; }
-.form-actions { display: flex; gap: 10px; }
-
-.btn-submit {
-  background: var(--moodle-blue);
-  color: #fff;
-  border: none;
-  padding: 11px 28px;
-  border-radius: 10px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-.btn-submit:hover { opacity: 0.88; }
-
-.btn-close-form {
-  background: transparent;
-  border: 1.5px solid var(--border);
-  color: var(--ink-mid);
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-/* ── DIVIDER ───────────────────────────────────────── */
-.divider {
-  max-width: 940px; margin: 0 auto 2rem; padding: 0 1.25rem;
-  display: flex; align-items: center; gap: 14px;
-}
+/* ── DIVIDER ── */
+.divider { max-width: 940px; margin: 0 auto 2rem; padding: 0 1.25rem; display: flex; align-items: center; gap: 14px; }
 .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(25,72,102,0.14); }
 .divider-label { font-size: 11px; font-weight: 700; color: var(--ink-ghost); letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
 
-/* ── CARD GRID ─────────────────────────────────────── */
-.kgrid {
-  max-width: 940px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 38px;
-  padding: 0 1.25rem;
-}
+/* ── CARD GRID ── */
+.kgrid { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill,minmax(210px,1fr)); gap: 38px; padding: 0 1.25rem; }
 
-/* ── STICKY NOTE CARD ──────────────────────────────── */
+/* ── STICKY NOTE CARD ── */
 .kcard {
-  border-radius: var(--radius-card);
-  padding: 1.3rem 1.15rem 1.15rem;
-  position: relative;
-  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-card); padding: 1.3rem 1.15rem 1.15rem;
+  position: relative; box-shadow: var(--shadow-card);
   transition: transform 0.22s cubic-bezier(.34,1.56,.64,1), box-shadow 0.22s;
-  cursor: default;
-  margin-top: 16px;
-  overflow: hidden;
-  will-change: transform;
+  cursor: default; margin-top: 16px; overflow: hidden; will-change: transform;
 }
-.kcard:hover {
-  transform: rotate(0deg) translateY(-10px) scale(1.04) !important;
-  box-shadow: var(--shadow-card-hover) !important;
-  z-index: 10;
-}
+.kcard:hover { transform: rotate(0deg) translateY(-10px) scale(1.04) !important; box-shadow: var(--shadow-card-hover) !important; z-index: 10; }
 
-/* note colour sets */
 .kn0{background:var(--note-0)} .kn0 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-0) 55%,#fff),var(--pin-0))}
 .kn1{background:var(--note-1)} .kn1 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-1) 55%,#fff),var(--pin-1))}
 .kn2{background:var(--note-2)} .kn2 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-2) 55%,#fff),var(--pin-2))}
@@ -342,147 +120,41 @@ body {
 .kn6{background:var(--note-6)} .kn6 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-6) 55%,#fff),var(--pin-6))}
 .kn7{background:var(--note-7)} .kn7 .pin{background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--pin-7) 55%,#fff),var(--pin-7))}
 
-/* push pin */
 .pin {
   position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
   width: 22px; height: 22px; border-radius: 50%;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.36), inset 0 2px 4px rgba(255,255,255,0.3);
-  z-index: 2;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.36), inset 0 2px 4px rgba(255,255,255,0.3); z-index: 2;
 }
+.value-tag { display: inline-block; font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 700; margin-bottom: 10px; background: rgba(0,0,0,0.10); color: rgba(0,0,0,0.65); letter-spacing: 0.3px; }
+.av { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; background: rgba(0,0,0,0.11); color: var(--moodle-black); }
+.bigq { font-family: Georgia,serif; font-size: 64px; line-height: 1; color: rgba(0,0,0,0.07); position: absolute; top: 52px; left: 4px; pointer-events: none; user-select: none; }
 
-/* value label on card */
-.value-tag {
-  display: inline-block; font-size: 10px; padding: 3px 10px;
-  border-radius: 20px; font-weight: 700; margin-bottom: 10px;
-  background: rgba(0,0,0,0.10); color: rgba(0,0,0,0.65); letter-spacing: 0.3px;
-}
-
-/* avatar */
-.av {
-  width: 36px; height: 36px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; flex-shrink: 0;
-  background: rgba(0,0,0,0.11); color: var(--moodle-black);
-}
-
-/* quote decoration */
-.bigq {
-  font-family: Georgia, serif; font-size: 64px; line-height: 1;
-  color: rgba(0,0,0,0.07); position: absolute; top: 52px; left: 4px;
-  pointer-events: none; user-select: none;
-}
-
-/* pending badge (admin only) */
-.pending-badge {
-  position: absolute; top: 10px; right: 9px;
-  font-size: 9px; background: rgba(0,0,0,0.10);
-  padding: 2px 8px; border-radius: 20px;
-  font-weight: 700; color: rgba(0,0,0,0.48);
-  text-transform: uppercase; letter-spacing: 0.4px;
-}
-
-/* reveal button */
-.reveal-btn {
-  width: 100%; margin-top: 12px; padding: 8px; border-radius: 20px;
-  border: 2px solid rgba(0,0,0,0.20);
-  background: rgba(255,255,255,0.55); color: var(--moodle-black);
-  font-family: var(--font-body); font-size: 11px; font-weight: 700; cursor: pointer;
-  transition: background 0.15s;
-}
-.reveal-btn:hover { background: rgba(255,255,255,0.90); }
-
-/* ── MYSTERY CARD ──────────────────────────────────── */
+/* ── MYSTERY CARD ── */
 .mystery {
-  background: var(--surface); border-radius: var(--radius-card);
-  padding: 1.5rem 1rem; text-align: center;
-  box-shadow: var(--shadow-card); min-height: 210px;
+  background: var(--surface); border-radius: var(--radius-card); padding: 1.5rem 1rem;
+  text-align: center; box-shadow: var(--shadow-card); min-height: 210px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  border: 2px dashed rgba(25,72,102,0.20);
-  position: relative; overflow: hidden; margin-top: 16px;
+  border: 2px dashed rgba(25,72,102,0.20); position: relative; margin-top: 16px;
 }
-.mystery .pin { background: radial-gradient(circle at 38% 32%, #93C5FD, #1D4ED8); }
-
+.mystery .pin { background: radial-gradient(circle at 38% 32%,#93C5FD,#1D4ED8); }
 @keyframes float { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-9px) rotate(5deg)} }
-.mystery-icon {
-  width: 52px; height: 52px; background: var(--accent-bg); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 12px; animation: float 2.6s ease-in-out infinite;
-}
+.mystery-icon { width: 52px; height: 52px; background: var(--accent-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; animation: float 2.6s ease-in-out infinite; }
 .mystery-dots { display: flex; gap: 5px; margin-top: 12px; justify-content: center; }
 .mystery-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-bg); border: 1.5px solid var(--border); display: inline-block; }
 
-/* ── CONFETTI ──────────────────────────────────────── */
+/* ── CONFETTI ── */
 .confbox { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: var(--radius-card); }
 .cp { position: absolute; top: -10px; width: 9px; height: 9px; border-radius: 2px; }
-
-/* ── CARD REVEAL ANIMATION ─────────────────────────── */
-@keyframes cardPop {
-  0%   { transform: scale(0.3) rotate(-15deg) !important; opacity: 0; }
-  65%  { transform: scale(1.08) !important; }
-  100% { transform: scale(1) !important; opacity: 1; }
-}
+@keyframes cardPop { 0%{transform:scale(0.3) rotate(-15deg)!important;opacity:0} 65%{transform:scale(1.08)!important} 100%{transform:scale(1)!important;opacity:1} }
 .popped { animation: cardPop 0.55s cubic-bezier(.34,1.56,.64,1) both !important; }
 
-/* ── TOAST BAR (top of page, no fixed positioning) ──── */
-.toast-bar {
-  max-height: 0;
-  overflow: hidden;
-  text-align: center;
-  background: var(--moodle-blue);
-  color: var(--moodle-orange);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
-  transition: max-height 0.35s ease, padding 0.35s ease;
-  padding: 0 32px;
-}
-.toast-bar.show { max-height: 60px; padding: 14px 32px; }
-
-/* ── ADMIN PANEL (inline, iframe-safe) ─────────────── */
-.admin-panel {
-  max-width: 940px; margin: 0 auto 1.5rem; padding: 0 1.25rem;
-}
-.admin-panel-inner {
-  background: var(--surface);
-  border-radius: 14px;
-  border: 1.5px solid rgba(25,72,102,0.18);
-  padding: 1.75rem 2rem;
-  max-width: 440px;
-  margin: 0 auto;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(25,72,102,0.10);
-}
-.admin-panel-inner h3 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--moodle-blue); margin-bottom: 6px; }
-.admin-panel-inner p  { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-bottom: 1.25rem; line-height: 1.55; }
-.admin-panel-inner input {
-  width: 100%; padding: 11px 14px; border-radius: 10px;
-  border: 1.5px solid var(--border); font-family: var(--font-body);
-  font-size: 16px; text-align: center; color: var(--ink); background: var(--bg);
-  letter-spacing: 5px; margin-bottom: 1rem; outline: none; display: block;
-}
-.admin-panel-inner input:focus { border-color: var(--moodle-blue); background: #fff; }
-.admin-panel-btns { display: flex; gap: 10px; justify-content: center; }
-.admin-confirm {
-  background: var(--moodle-blue); color: #fff; border: none;
-  padding: 10px 28px; border-radius: 10px;
-  font-family: var(--font-body); font-size: 14px; font-weight: 700; cursor: pointer;
-}
-.admin-cancel {
-  background: transparent; border: 1.5px solid var(--border); color: var(--ink-mid);
-  padding: 9px 22px; border-radius: 10px;
-  font-family: var(--font-body); font-size: 14px; font-weight: 700; cursor: pointer;
-}
-.pin-error { font-size: 12px; color: #B91C1C; font-weight: 700; margin-top: -8px; margin-bottom: 10px; display: none; }
-
+/* ── LOADING / ERROR ── */
+.loading { text-align: center; padding: 3rem; color: var(--ink-soft); font-size: 14px; font-weight: 600; }
 .empty-state { text-align: center; padding: 4rem 1rem; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
 </style>
 </head>
 <body>
 
-<!-- TOAST BAR (top of page, works in iframes) -->
-<div class="toast-bar" id="toast-bar"></div>
-
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">
     <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -493,140 +165,48 @@ body {
   <h1>Wall of <em>Fame</em></h1>
   <p class="hero-sub">Celebrating the people who make us better, every single day</p>
   <div class="stats" id="stats"></div>
+  <!-- Submit button links to Microsoft Form — update URL in kudos.json -->
+  <a class="submit-kudo-btn" id="submit-btn" href="#" target="_blank">Give a kudo</a>
+  <p class="submit-note" id="submit-note">Opens the kudo submission form</p>
 </div>
 
-<!-- TOOLBAR -->
-<div class="toolbar">
-  <div class="value-filters" id="val-filters"></div>
-  <div class="toolbar-btns">
-    <button class="btn-kudo" id="kudo-btn" onclick="toggleForm()">Give a kudo</button>
-    <button class="btn-admin" id="admin-btn" onclick="openAdminModal()">Admin</button>
-  </div>
-</div>
-
-<!-- FORM -->
-<div class="form-outer" id="form-outer" style="display:none">
-  <div class="form-card">
-    <h2>Give a kudo</h2>
-    <p class="form-sub">Celebrate a teammate who is living our values. Your message will be revealed at the next all-hands.</p>
-
-    <div class="fg2">
-      <div class="fi"><label>Their name</label><input id="f-name" type="text" placeholder="e.g. Sara Rodríguez"></div>
-      <div class="fi"><label>Initials</label><input id="f-init" type="text" placeholder="SR" maxlength="2"></div>
-      <div class="fi"><label>Team / role</label><input id="f-role" type="text" placeholder="e.g. Product"></div>
-      <div class="fi"><label>Your name</label><input id="f-from" type="text" placeholder="Your name + title"></div>
-    </div>
-
-    <div class="fi-full">
-      <label>Which value did they embody?</label>
-      <div class="value-picker" id="val-picker"></div>
-    </div>
-
-    <div class="fi-full">
-      <label>Your shout-out message</label>
-      <textarea id="f-msg" placeholder="What did they do? The more heartfelt and specific, the better."></textarea>
-    </div>
-
-    <div class="form-footer">
-      <p class="form-note">
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M10 2a8 8 0 1 0 0 16A8 8 0 0 0 10 2zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0 4a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1z" fill="#BBBBBB"/>
-        </svg>
-        Revealed live at the next all-hands
-      </p>
-      <div class="form-actions">
-        <button class="btn-submit" onclick="submitKudo()">Submit kudo</button>
-        <button class="btn-close-form" onclick="toggleForm()">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- BOARD -->
-<div class="divider"><span class="divider-label" id="board-label">All kudos</span></div>
-<div id="kgrid" class="kgrid"></div>
-<div id="empty-state" class="empty-state" style="display:none">No kudos here yet — be the first to celebrate a teammate!</div>
-
-<!-- ADMIN PIN PANEL (inline, no fixed positioning — works in iframes) -->
-<div class="admin-panel" id="admin-panel" style="display:none">
-  <div class="admin-panel-inner">
-    <h3>Admin access</h3>
-    <p>Enter the admin PIN to unlock reveal controls. Share only with leadership.</p>
-    <input type="password" id="pin-input" placeholder="· · · · · ·" maxlength="6" onkeydown="if(event.key==='Enter') confirmAdmin()">
-    <p class="pin-error" id="pin-error">Incorrect PIN — please try again</p>
-    <div class="admin-panel-btns">
-      <button class="admin-confirm" onclick="confirmAdmin()">Confirm</button>
-      <button class="admin-cancel" onclick="closeAdminPanel()">Cancel</button>
-    </div>
-  </div>
-</div>
+<div class="filter-bar" id="filter-bar"></div>
+<div class="divider"><span class="divider-label" id="board-label">Loading...</span></div>
+<div id="kgrid" class="kgrid"><div class="loading">Loading kudos...</div></div>
+<div id="empty-state" class="empty-state" style="display:none">No kudos yet — be the first to celebrate a teammate!</div>
 
 <script>
-/* ══════════════════════════════════════════════════════
-   CUSTOMISE: replace with your company's actual values.
-   Use light pastel hex codes so dark text stays readable.
-══════════════════════════════════════════════════════ */
-const VALUES = [
-  { label: "Education",  color: "#FDE68A" },
-  { label: "Openness",   color: "#6EE7B7" },
-  { label: "Respect",    color: "#FCA5C5" },
-  { label: "Integrity",  color: "#93C5FD" },
-  { label: "Innovation", color: "#C4B5FD" },
-];
-
-/* ══════════════════════════════════════════════════════
-   ADMIN PIN — change to your own 4–6 digit PIN
-══════════════════════════════════════════════════════ */
-const ADMIN_PIN = "1984";
-
-/* ── internal constants ── */
 const ROTS = [-3.5, 2.2, -1.8, 3.1, -2.4, 1.6, -3.2, 2.8, -1.3, 1.9, -2.8, 2.5];
 const CONF  = ["#FFE566","#6EE7B7","#FCA5C5","#93C5FD","#FDB77A","#C4B5FD","#86EFAC","#FDE68A"];
 
-/* ── sample data (delete before going live) ── */
-const SAMPLE = [
-  {id:1,name:"Sara Rodríguez",i:"SR",role:"Product",       val:4,msg:"Sara shipped the entire onboarding revamp solo and kept every stakeholder aligned. A true force of nature.",  from:"Ana Lima · VP Product",   pending:false,c:0},
-  {id:2,name:"James Kwon",    i:"JK",role:"Engineering",   val:0,msg:"Mentored two new engineers while delivering his own sprint without missing a beat. He defines team spirit.",    from:"Lena Hofer · Eng Manager",pending:false,c:1},
-  {id:3,name:"Mia Bertrand",  i:"MB",role:"Customer Success",val:2,msg:"Mia rescued a key account through sheer proactivity. Her NPS scores sit permanently at the top.",            from:"Carlos Vega · CCO",       pending:false,c:2},
-  {id:4,name:"Liam Torres",   i:"LT",role:"Design",        val:4,msg:"Rebuilt the entire design system in two weeks. Every designer now works faster because of him.",                from:"Sara Kim · Design Lead",  pending:false,c:3},
-  {id:5,name:"Priya Patel",   i:"PP",role:"Data",          val:3,msg:"Built our analytics dashboard from scratch. Every team makes sharper, faster decisions because of her.",        from:"Marco Di Luca · CTO",     pending:true, c:4},
-  {id:6,name:"David Osei",    i:"DO",role:"Marketing",     val:1,msg:"Organised three team events this quarter off his own initiative. The heartbeat of our culture.",               from:"Jessica Wong · CHRO",     pending:true, c:5},
-];
+let kudos = [], activeVal = "All", submitUrl = "#";
 
-/* ── state ── */
-let kudos = [], isAdmin = false, activeVal = "All", formOpen = false, selVal = null;
-
-/* ── storage — simple localStorage, works on GitHub Pages ── */
-const SKEY = "moodle_wof_v1";
-
-function load() {
+/* ─── Load data from kudos.json ─────────────────────────
+   This file lives in the same GitHub repo.
+   Admin edits kudos.json on GitHub to add/reveal cards.
+─────────────────────────────────────────────────────── */
+async function load() {
   try {
-    const saved = localStorage.getItem(SKEY);
-    kudos = saved ? JSON.parse(saved) : [...SAMPLE];
+    const res  = await fetch("kudos.json?v=" + Date.now()); // cache-bust
+    const data = await res.json();
+    kudos     = data.kudos || [];
+    submitUrl = data.submitUrl || "#";
   } catch {
-    kudos = [...SAMPLE];
+    kudos = [];
   }
-  buildValuePicker();
+  // Update submit button
+  const btn  = document.getElementById("submit-btn");
+  const note = document.getElementById("submit-note");
+  if (submitUrl && submitUrl !== "#" && submitUrl !== "PASTE_YOUR_MICROSOFT_FORM_URL_HERE") {
+    btn.href = submitUrl;
+    note.textContent = "Opens the kudo submission form in a new tab";
+  } else {
+    btn.style.display = "none";
+    note.style.display = "none";
+  }
   render();
 }
 
-function save() {
-  try { localStorage.setItem(SKEY, JSON.stringify(kudos)); } catch {}
-}
-
-/* ── value picker (form) ── */
-function buildValuePicker() {
-  document.getElementById("val-picker").innerHTML = VALUES.map((v,i) =>
-    `<button class="vpick" data-val="${i}" style="background:${v.color}" onclick="selectVal(${i})">${v.label}</button>`
-  ).join("");
-}
-function selectVal(i) {
-  selVal = i;
-  document.querySelectorAll(".vpick").forEach(b => b.classList.remove("selected"));
-  document.querySelector(`.vpick[data-val="${i}"]`)?.classList.add("selected");
-}
-
-/* ── stats ── */
 function renderStats() {
   const vis = kudos.filter(k => !k.pending);
   const ppl = new Set(vis.map(k => k.name)).size;
@@ -638,20 +218,18 @@ function renderStats() {
   ].map(s => `<div class="stat-pill"><strong>${s.n}</strong>${s.l}</div>`).join("");
 }
 
-/* ── value filters ── */
 function renderFilters() {
-  const used = new Set(kudos.filter(k => !k.pending || isAdmin).map(k => k.val));
-  const opts = ["All", ...VALUES.filter((_,i) => used.has(i)).map(v => v.label)];
-  document.getElementById("val-filters").innerHTML = opts
+  const used = new Set(kudos.filter(k => !k.pending).map(k => k.value));
+  const vals = [...used].sort();
+  if (vals.length < 2) { document.getElementById("filter-bar").innerHTML = ""; return; }
+  document.getElementById("filter-bar").innerHTML = ["All", ...vals]
     .map(v => `<button class="vbtn${activeVal === v ? " on" : ""}" onclick="setFilter('${v}')">${v}</button>`)
     .join("");
 }
 
-/* ── card html ── */
 function cardHTML(k, idx) {
   const rot = ROTS[idx % ROTS.length];
-
-  if (k.pending && !isAdmin) {
+  if (k.pending) {
     return `<div class="mystery" style="transform:rotate(${rot}deg)">
       <div class="pin"></div>
       <div class="mystery-icon">
@@ -668,19 +246,12 @@ function cardHTML(k, idx) {
       <div class="mystery-dots"><span></span><span></span><span></span></div>
     </div>`;
   }
-
-  const v   = VALUES[k.val] || VALUES[0];
-  const pb  = k.pending ? `<span class="pending-badge">Pending</span>` : "";
-  const rv  = k.pending && isAdmin
-    ? `<button class="reveal-btn" onclick="revealCard(${k.id})">Reveal at all-hands</button>` : "";
-
-  return `<div class="kcard kn${k.c % 8}" id="kc-${k.id}" style="transform:rotate(${rot}deg)">
+  return `<div class="kcard kn${(k.color||0) % 8}" id="kc-${k.id}" style="transform:rotate(${rot}deg)">
     <div class="confbox" id="cf-${k.id}"></div>
     <div class="pin"></div>
-    ${pb}
-    <span class="value-tag">${v.label}</span>
+    <span class="value-tag">${k.value || ""}</span>
     <div style="display:flex;align-items:center;gap:9px;margin-bottom:11px">
-      <div class="av">${k.i}</div>
+      <div class="av">${k.initials}</div>
       <div>
         <p style="font-size:13px;font-weight:700;color:#282828;line-height:1.25">${k.name}</p>
         <p style="font-size:11px;color:#8a8a8e;font-weight:600">${k.role}</p>
@@ -688,130 +259,52 @@ function cardHTML(k, idx) {
     </div>
     <div style="position:relative">
       <div class="bigq">"</div>
-      <p style="font-size:12px;color:rgba(40,40,40,0.75);line-height:1.65;font-style:italic;padding-left:10px">${k.msg}</p>
+      <p style="font-size:12px;color:rgba(40,40,40,0.75);line-height:1.65;font-style:italic;padding-left:10px">${k.message}</p>
     </div>
     <p style="font-size:11px;color:rgba(40,40,40,0.50);margin-top:9px;font-weight:600">— ${k.from}</p>
-    ${rv}
   </div>`;
 }
 
-/* ── render ── */
 function render() {
   renderStats();
   renderFilters();
   let f = kudos.slice();
-  if (activeVal !== "All") f = f.filter(k => VALUES[k.val]?.label === activeVal);
+  if (activeVal !== "All") f = f.filter(k => k.value === activeVal);
   f.sort((a, b) => (a.pending ? 1 : 0) - (b.pending ? 1 : 0));
-
   const cnt = f.filter(k => !k.pending).length;
   document.getElementById("board-label").textContent =
     activeVal === "All" ? `${cnt} kudo${cnt !== 1 ? "s" : ""}` : `${activeVal} · ${cnt}`;
-
   const grid  = document.getElementById("kgrid");
   const empty = document.getElementById("empty-state");
   if (!f.length) { grid.style.display = "none"; empty.style.display = "block"; }
   else { grid.style.display = ""; empty.style.display = "none"; grid.innerHTML = f.map((k,i) => cardHTML(k,i)).join(""); }
+  // Pop animation on freshly-revealed cards (ones just flipped to pending:false)
+  requestAnimationFrame(() => {
+    document.querySelectorAll(".kcard.new-reveal").forEach(card => {
+      card.classList.add("popped");
+      const box = card.querySelector(".confbox");
+      if (box) fireConfetti(box);
+    });
+  });
+}
+
+function fireConfetti(box) {
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement("div"); p.className = "cp";
+    const dur = 0.8 + Math.random() * 0.9, del = Math.random() * 0.38;
+    p.style.cssText = `left:${Math.random()*100}%;background:${CONF[Math.floor(Math.random()*CONF.length)]};`;
+    box.appendChild(p);
+    setTimeout(() => { p.style.transition=`transform ${dur}s linear ${del}s,opacity ${dur}s linear ${del}s`; p.style.transform=`translateY(300px) rotate(${Math.random()*720}deg)`; p.style.opacity="0"; }, 20);
+    setTimeout(() => p.remove(), (dur+del)*1000+150);
+  }
 }
 
 function setFilter(v) { activeVal = v; render(); }
 
-/* ── form ── */
-function toggleForm() {
-  formOpen = !formOpen;
-  document.getElementById("form-outer").style.display = formOpen ? "block" : "none";
-  document.getElementById("kudo-btn").textContent = formOpen ? "Close" : "Give a kudo";
-  if (formOpen) {
-    selVal = null;
-    document.querySelectorAll(".vpick").forEach(b => b.classList.remove("selected"));
-  }
-}
-
-function submitKudo() {
-  const name = document.getElementById("f-name").value.trim();
-  const init = document.getElementById("f-init").value.trim().toUpperCase();
-  const msg  = document.getElementById("f-msg").value.trim();
-  if (!name || !init) { toast("Please enter the recipient's name and initials"); return; }
-  if (selVal === null) { toast("Please pick a value they embody"); return; }
-  if (!msg) { toast("Don't forget to add a message!"); return; }
-
-  kudos.push({
-    id: Date.now(), name, i: init,
-    role: document.getElementById("f-role").value.trim() || "Team",
-    val: selVal, msg,
-    from: document.getElementById("f-from").value.trim() || "A teammate",
-    pending: true,
-    c: kudos.length % 8,
-  });
-  save();
-  ["f-name","f-init","f-role","f-from","f-msg"].forEach(id => { document.getElementById(id).value = ""; });
-  selVal = null;
-  toggleForm();
-  render();
-  toast("Kudo submitted! It will be revealed at the next all-hands.");
-}
-
-/* ── admin ── */
-function openAdminModal() {
-  if (isAdmin) {
-    isAdmin = false;
-    document.getElementById("admin-btn").classList.remove("on");
-    document.getElementById("admin-btn").textContent = "Admin";
-    render(); toast("Admin mode off");
-    return;
-  }
-  document.getElementById("admin-panel").style.display = "block";
-  document.getElementById("pin-input").value = "";
-  document.getElementById("pin-error").style.display = "none";
-  setTimeout(() => document.getElementById("pin-input").focus(), 50);
-}
-function closeAdminPanel() {
-  document.getElementById("admin-panel").style.display = "none";
-}
-function confirmAdmin() {
-  if (document.getElementById("pin-input").value === ADMIN_PIN) {
-    closeAdminPanel();
-    isAdmin = true;
-    document.getElementById("admin-btn").classList.add("on");
-    document.getElementById("admin-btn").textContent = "Admin ON";
-    render(); toast("Admin mode on — you can now reveal kudos");
-  } else {
-    document.getElementById("pin-error").style.display = "block";
-    document.getElementById("pin-input").value = "";
-    document.getElementById("pin-input").focus();
-  }
-}
-
-/* ── reveal ── */
-function revealCard(id) {
-  const k = kudos.find(k => k.id === id); if (!k) return;
-  k.pending = false; save(); render();
-  setTimeout(() => {
-    const card = document.getElementById("kc-" + id);
-    const box  = document.getElementById("cf-" + id);
-    if (!card || !box) return;
-    card.classList.add("popped");
-    for (let i = 0; i < 32; i++) {
-      const p = document.createElement("div"); p.className = "cp";
-      const dur = 0.8 + Math.random() * 0.9, del = Math.random() * 0.38;
-      p.style.cssText = `left:${Math.random()*100}%;background:${CONF[Math.floor(Math.random()*CONF.length)]};`;
-      box.appendChild(p);
-      setTimeout(() => { p.style.transition=`transform ${dur}s linear ${del}s,opacity ${dur}s linear ${del}s`; p.style.transform=`translateY(300px) rotate(${Math.random()*720}deg)`; p.style.opacity="0"; }, 20);
-      setTimeout(() => p.remove(), (dur+del)*1000+150);
-    }
-    setTimeout(() => card.classList.remove("popped"), 650);
-  }, 90);
-  toast("Revealed! The team is going to love this.");
-}
-
-/* ── toast ── */
-function toast(msg) {
-  const t = document.getElementById("toast-bar");
-  t.textContent = msg;
-  t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 3200);
-}
-
 load();
+
+// Auto-refresh every 60 seconds so the board updates after admin edits kudos.json
+setInterval(load, 60000);
 </script>
 </body>
 </html>
